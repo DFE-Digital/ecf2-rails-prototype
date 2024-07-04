@@ -88,6 +88,6 @@ InductionPeriod.all.each do |induction_period|
     provider_partnership: ProviderPartnership.all.sample,
     started_on: induction_period.started_on
   ).tap do |tp|
-    create_declarations(tp, [1,2,3,4,5,6].sample)
+    create_declarations(tp, SecureRandom.rand(1..6))
   end
 end

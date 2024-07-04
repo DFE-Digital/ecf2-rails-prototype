@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :declaration do
-    training
+    training_period
   end
 end

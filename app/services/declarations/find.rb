@@ -30,17 +30,11 @@ module Declarations
         .joins(training_period: [:provider_partnership, { induction_period: :ect_at_school_period }])
         .merge(ProviderPartnership.where.not(lead_provider:))
         .merge(ECTAtSchoolPeriod.where(teacher: teachers_currently_being_trained_by_lead_provider))
-        .merge(TrainingPeriod.closed)
-        .merge(InductionPeriod.closed)
-        .merge(ECTAtSchoolPeriod.closed)
     end
 
     def teachers_currently_being_trained_by_lead_provider
       Teacher
-        .joins(ect_at_school_periods: { induction_periods: { training_periods: :provider_partnership } })
-        .merge(TrainingPeriod.open)
-        .merge(InductionPeriod.open)
-        .merge(ECTAtSchoolPeriod.open)
+        .joins(open_ect_at_school_periods: { open_induction_periods: { open_training_periods: :provider_partnership } })
         .merge(ProviderPartnership.where(lead_provider:, academic_year: @academic_year))
     end
   end

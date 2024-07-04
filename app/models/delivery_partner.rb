@@ -1,3 +1,3 @@
 class DeliveryPartner < ApplicationRecord
-  has_many :object
+  has_many :provider_partnerships
 end

@@ -9,10 +9,12 @@ grange_hill = School.create(name: "Grange Hill")
 
 academic_year_2021 = AcademicYear.create(year: 2021)
 academic_year_2022 = AcademicYear.create(year: 2022)
+academic_year_2023 = AcademicYear.create(year: 2023)
+academic_year_2024 = AcademicYear.create(year: 2024)
 
 ambition = LeadProvider.create(name: "Ambition")
 edt = LeadProvider.create(name: "EDT")
-# _bpn = LeadProvider.create(name: "Best Practice Network")
+bpn = LeadProvider.create(name: "Best Practice Network")
 # _teach_first = LeadProvider.create(name: "Teach First")
 # _capita = LeadProvider.create(name: "Capita")
 # _ucl = LeadProvider.create(name: "UCL")
@@ -22,19 +24,19 @@ academies_enterprise_trust = DeliveryPartner.create(name: "Academies Enterprise 
 ark_tsh = DeliveryPartner.create(name: "Ark Teaching School Hub")
 blue_kite = DeliveryPartner.create(name: "Blue Kite Trust")
 
-ambition_with_academies_enterprise_trust = ProviderPartnership.create(
+ambition_with_academies_enterprise_trust_2021 = ProviderPartnership.create(
   lead_provider: ambition,
   delivery_partner: academies_enterprise_trust,
   academic_year: academic_year_2021
 )
 
-edt_with_ark_tsh = ProviderPartnership.create(
+edt_with_ark_tsh_2021 = ProviderPartnership.create(
   lead_provider: edt,
   delivery_partner: ark_tsh,
   academic_year: academic_year_2021
 )
 
-edt_with_blue_kite = ProviderPartnership.create(
+edt_with_blue_kite_2021 = ProviderPartnership.create(
   lead_provider: edt,
   delivery_partner: blue_kite,
   academic_year: academic_year_2021
@@ -91,3 +93,6 @@ InductionPeriod.all.each do |induction_period|
     create_declarations(tp, SecureRandom.rand(1..6))
   end
 end
+
+# Scenarios
+load(Rails.root.join("db/scenarios/complex.rb"))

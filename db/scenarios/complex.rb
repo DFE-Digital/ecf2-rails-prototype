@@ -39,13 +39,13 @@ emma_trains_with_ambition_and_ark_2024_at_school_a = TrainingPeriod.create(
   started_on: 2.months.ago
 )
 # - provider a reports a started declaration against training period a
-Declaration.create(training_period: emma_trains_with_ambition_and_ark_2024_at_school_a)
+Declaration.create(training_period: emma_trains_with_ambition_and_ark_2024_at_school_a, declaration_type: "started")
 
 # - participant a leaves school a
-emma_at_school_a.update(finished_on: 1.months.ago)
-appropriate_body_a_inducts_emma_at_school_a.update(finished_on: 1.months.ago)
-emma_trains_with_ambition_and_ark_2024_at_school_a.update(finished_on: 1.months.ago)
-mark_mentors_emma_at_school_a.update(finished_on: 1.months.ago)
+emma_at_school_a.update(finished_on: 1.month.ago)
+appropriate_body_a_inducts_emma_at_school_a.update(finished_on: 1.month.ago)
+emma_trains_with_ambition_and_ark_2024_at_school_a.update(finished_on: 1.month.ago)
+mark_mentors_emma_at_school_a.update(finished_on: 1.month.ago)
 
 # at school b
 school_b = School.create(name: "B primary school")
@@ -65,4 +65,4 @@ emma_trains_with_bpn_and_blue_kite_2024_at_school_b = TrainingPeriod.create(
   started_on: 2.weeks.ago
 )
 # - provider b reports a retained-1 declaration against training period b
-Declaration.create(training_period: emma_trains_with_bpn_and_blue_kite_2024_at_school_b)
+Declaration.create(training_period: emma_trains_with_bpn_and_blue_kite_2024_at_school_b, declaration_type: "retained-1")

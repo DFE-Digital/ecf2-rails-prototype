@@ -14,12 +14,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
 
     create_table :teachers do |t|
       t.string :name
-      t.integer :ect_academic_year_id
-      t.integer :mentor_academic_year_id
     end
-
-    add_foreign_key :teachers, :academic_years, column: "ect_academic_year_id"
-    add_foreign_key :teachers, :academic_years, column: "mentor_academic_year_id"
 
     create_table :appropriate_bodies do |t|
       t.string :name
@@ -58,7 +53,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
 
     create_table :training_periods do |t|
       t.references :provider_partnership
-      t.references :induction_period
+      t.references :ect_at_school_period
       t.references :mentor_at_school_period
       t.date :started_on, null: false
       t.date :finished_on

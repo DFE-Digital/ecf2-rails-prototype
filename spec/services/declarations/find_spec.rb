@@ -5,10 +5,10 @@ RSpec.describe Declarations::Find do
   let(:provider_b) { create(:lead_provider, name: "Provider B") }
   let(:academic_year) { create(:academic_year) }
   let(:edmund) { create(:teacher, :in_ect_training, with_declarations: true, name: "Edmund", lead_provider: provider_a, academic_year:) }
-  let!(:edmunds_declaration) { edmund.ect_at_school_periods.first.induction_periods.first.training_periods.first.declarations.first }
+  let!(:edmunds_declaration) { edmund.ect_at_school_periods.first.training_periods.first.declarations.first }
 
   let(:ethel) { create(:teacher, :in_ect_training, with_declarations: true, name: "Ethel", lead_provider: provider_b, academic_year:) }
-  let!(:ethels_declaration) { ethel.ect_at_school_periods.first.induction_periods.first.training_periods.first.declarations.first }
+  let!(:ethels_declaration) { ethel.ect_at_school_periods.first.training_periods.first.declarations.first }
 
   subject(:service) { described_class.new(lead_provider: provider_a, academic_year:) }
 
@@ -22,11 +22,11 @@ RSpec.describe Declarations::Find do
     end
 
     context "when Ethel changes to Provider A" do
-      let(:ethels_induction_period) { ethel.ect_at_school_periods.first.induction_periods.first }
-      let(:ethels_original_training_period) { ethels_induction_period.training_periods.first }
+      let(:ethels_ect_period) { ethel.ect_at_school_periods.first }
+      let(:ethels_original_training_period) { ethels_ect_period.training_periods.first }
       let!(:ethels_new_training) do
         create(:training_period, :with_provider,
-               induction_period: ethels_induction_period,
+               ect_at_school_period: ethels_ect_period,
                lead_provider: provider_a,
                academic_year:,
                started_on: 14.hours.ago)

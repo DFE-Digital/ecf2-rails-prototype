@@ -13,7 +13,7 @@ FactoryBot.define do
         mentorship_period = create(:mentorship_period, mentee: ect_at_school_period)
         induction_period = create(:induction_period, ect_at_school_period:)
         training_period = create(:training_period, :with_provider,
-                                 induction_period:,
+                                 ect_at_school_period:,
                                  lead_provider: options.lead_provider,
                                  academic_year: options.academic_year,
                                  with_declarations: options.with_declarations)

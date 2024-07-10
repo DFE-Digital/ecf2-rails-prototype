@@ -6,7 +6,6 @@ FactoryBot.define do
       with_declarations { false }
     end
 
-    induction_period
     started_on { 2.weeks.ago }
 
     trait :with_provider do

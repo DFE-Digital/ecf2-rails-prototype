@@ -27,14 +27,14 @@ module Declarations
 
     def declarations_made_by_previous_lead_providers
       Declaration
-        .joins(training_period: [:provider_partnership, { induction_period: :ect_at_school_period }])
+        .joins(training_period: [:provider_partnership, :ect_at_school_period])
         .merge(ProviderPartnership.where.not(lead_provider:))
         .merge(ECTAtSchoolPeriod.where(teacher: teachers_currently_being_trained_by_lead_provider))
     end
 
     def teachers_currently_being_trained_by_lead_provider
       Teacher
-        .joins(open_ect_at_school_periods: { open_induction_periods: { open_training_periods: :provider_partnership } })
+        .joins(open_ect_at_school_periods: { open_training_periods: :provider_partnership })
         .merge(ProviderPartnership.where(lead_provider:, academic_year: @academic_year))
     end
   end

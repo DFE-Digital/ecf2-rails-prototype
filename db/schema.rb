@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.bigint "teacher_id"
     t.date "started_on", null: false
     t.date "finished_on"
+    t.index "school_id, teacher_id, ((finished_on IS NULL))", name: "idx_on_school_id_teacher_id_finished_on_IS_NULL_abe4626dca", unique: true, where: "(finished_on IS NULL)"
     t.index ["school_id"], name: "index_ect_at_school_periods_on_school_id"
     t.index ["teacher_id"], name: "index_ect_at_school_periods_on_teacher_id"
   end
@@ -46,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.bigint "appropriate_body_id"
     t.date "started_on", null: false
     t.date "finished_on"
+    t.index "ect_at_school_period_id, ((finished_on IS NULL))", name: "idx_on_ect_at_school_period_id_finished_on_IS_NULL_be6c214e9d", unique: true, where: "(finished_on IS NULL)"
     t.index ["appropriate_body_id"], name: "index_induction_periods_on_appropriate_body_id"
     t.index ["ect_at_school_period_id"], name: "index_induction_periods_on_ect_at_school_period_id"
   end
@@ -59,6 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.bigint "teacher_id"
     t.date "started_on", null: false
     t.date "finished_on"
+    t.index "school_id, teacher_id, ((finished_on IS NULL))", name: "idx_on_school_id_teacher_id_finished_on_IS_NULL_dd7ee16a28", unique: true, where: "(finished_on IS NULL)"
     t.index ["school_id"], name: "index_mentor_at_school_periods_on_school_id"
     t.index ["teacher_id"], name: "index_mentor_at_school_periods_on_teacher_id"
   end
@@ -68,6 +71,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.bigint "mentor_at_school_period_id"
     t.date "started_on", null: false
     t.date "finished_on"
+    t.index "ect_at_school_period_id, mentor_at_school_period_id, ((finished_on IS NULL))", name: "idx_on_ect_at_school_period_id_mentor_at_school_per_482f52b217", unique: true, where: "(finished_on IS NULL)"
     t.index ["ect_at_school_period_id"], name: "index_mentorship_periods_on_ect_at_school_period_id"
     t.index ["mentor_at_school_period_id"], name: "index_mentorship_periods_on_mentor_at_school_period_id"
   end
@@ -87,21 +91,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
 
   create_table "teachers", force: :cascade do |t|
     t.string "name"
-    t.integer "ect_academic_year_id"
-    t.integer "mentor_academic_year_id"
   end
 
   create_table "training_periods", force: :cascade do |t|
     t.bigint "provider_partnership_id"
-    t.bigint "induction_period_id"
+    t.bigint "ect_at_school_period_id"
     t.bigint "mentor_at_school_period_id"
     t.date "started_on", null: false
     t.date "finished_on"
-    t.index ["induction_period_id"], name: "index_training_periods_on_induction_period_id"
+    t.index "ect_at_school_period_id, mentor_at_school_period_id, provider_partnership_id, ((finished_on IS NULL))", name: "idx_on_ect_at_school_period_id_mentor_at_school_per_442268543c", unique: true, where: "(finished_on IS NULL)"
+    t.index ["ect_at_school_period_id"], name: "index_training_periods_on_ect_at_school_period_id"
     t.index ["mentor_at_school_period_id"], name: "index_training_periods_on_mentor_at_school_period_id"
     t.index ["provider_partnership_id"], name: "index_training_periods_on_provider_partnership_id"
   end
 
-  add_foreign_key "teachers", "academic_years", column: "ect_academic_year_id"
-  add_foreign_key "teachers", "academic_years", column: "mentor_academic_year_id"
 end

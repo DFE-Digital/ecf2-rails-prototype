@@ -29,6 +29,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
       t.references :teacher
       t.date :started_on, null: false
       t.date :finished_on
+      t.index "school_id, teacher_id, ((finished_on IS NULL))", unique: true, where: "(finished_on IS NULL)"
     end
 
     create_table :mentor_at_school_periods do |t|
@@ -36,6 +37,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
       t.references :teacher
       t.date :started_on, null: false
       t.date :finished_on
+      t.index "school_id, teacher_id, ((finished_on IS NULL))", unique: true, where: "(finished_on IS NULL)"
     end
 
     create_table :mentorship_periods do |t|
@@ -43,6 +45,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
       t.references :mentor_at_school_period
       t.date :started_on, null: false
       t.date :finished_on
+      t.index "ect_at_school_period_id, mentor_at_school_period_id, ((finished_on IS NULL))", unique: true, where: "(finished_on IS NULL)"
     end
 
     create_table :provider_partnerships do |t|
@@ -57,6 +60,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
       t.references :mentor_at_school_period
       t.date :started_on, null: false
       t.date :finished_on
+      t.index "ect_at_school_period_id, mentor_at_school_period_id, provider_partnership_id, ((finished_on IS NULL))", unique: true, where: "(finished_on IS NULL)"
     end
 
     create_table :declarations do |t|
@@ -69,6 +73,7 @@ class CreateTables < ActiveRecord::Migration[7.1]
       t.references :appropriate_body
       t.date :started_on, null: false
       t.date :finished_on
+      t.index "ect_at_school_period_id, ((finished_on IS NULL))", unique: true, where: "(finished_on IS NULL)"
     end
   end
 end

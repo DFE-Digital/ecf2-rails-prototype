@@ -42,6 +42,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.index ["teacher_id"], name: "index_ect_at_school_periods_on_teacher_id"
   end
 
+  create_table "gias_schools", primary_key: "urn", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "ukprn"
+    t.integer "school_phase_type"
+    t.string "school_phase_name"
+    t.integer "school_type_code"
+    t.string "school_type_name"
+    t.integer "school_status_code"
+    t.string "school_status_name"
+    t.string "administrative_district_code"
+    t.string "administrative_district_name"
+    t.string "address_line1", null: false
+    t.string "address_line2"
+    t.string "address_line3"
+    t.string "postcode", null: false
+    t.string "primary_contact_email"
+    t.string "secondary_contact_email"
+    t.string "school_website"
+    t.boolean "section_41_approved"
+    t.integer "la_code"
+    t.integer "establishment_number"
+    t.date "open_date"
+    t.date "close_date"
+    t.integer "easting"
+    t.integer "northing"
+  end
+
   create_table "induction_periods", force: :cascade do |t|
     t.bigint "ect_at_school_period_id"
     t.bigint "appropriate_body_id"
@@ -86,7 +113,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
   end
 
   create_table "schools", force: :cascade do |t|
+    t.bigint "gias_school_id"
     t.string "name"
+    t.index ["gias_school_id"], name: "index_schools_on_gias_school_id"
   end
 
   create_table "teachers", force: :cascade do |t|

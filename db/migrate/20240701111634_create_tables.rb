@@ -20,7 +20,35 @@ class CreateTables < ActiveRecord::Migration[7.1]
       t.string :name
     end
 
+    create_table :gias_schools, primary_key: :urn do |t|
+      t.string :name, null: false
+      t.integer :ukprn
+      t.integer :school_phase_type
+      t.string :school_phase_name
+      t.integer :school_type_code
+      t.string :school_type_name
+      t.integer :school_status_code
+      t.string :school_status_name
+      t.string :administrative_district_code
+      t.string :administrative_district_name
+      t.string :address_line1, null: false
+      t.string :address_line2
+      t.string :address_line3
+      t.string :postcode, null: false
+      t.string :primary_contact_email
+      t.string :secondary_contact_email
+      t.string :school_website
+      t.boolean :section_41_approved
+      t.integer :la_code
+      t.integer :establishment_number
+      t.date :open_date
+      t.date :close_date
+      t.integer :easting
+      t.integer :northing
+    end
+
     create_table :schools do |t|
+      t.references :gias_school
       t.string :name
     end
 

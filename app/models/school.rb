@@ -8,4 +8,12 @@ class School < ApplicationRecord
   has_many :closed_mentor_at_school_periods, -> { closed }, class_name: "MentorAtSchoolPeriod"
 
   belongs_to :gias_school, class_name: "GIAS::School"
+
+  def to_param
+    urn
+  end
+
+  def urn
+    gias_school_id
+  end
 end

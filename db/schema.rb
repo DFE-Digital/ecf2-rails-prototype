@@ -14,6 +14,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "gias_school_statuses", ["open", "closed", "proposed_to_close", "proposed_to_open"]
+
   create_table "academic_years", force: :cascade do |t|
     t.integer "year", null: false
   end
@@ -45,24 +49,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
   create_table "gias_schools", primary_key: "urn", force: :cascade do |t|
     t.string "name", null: false
     t.integer "ukprn"
+    t.integer "la_code"
+    t.integer "establishment_number"
     t.integer "school_phase_type"
     t.string "school_phase_name"
     t.integer "school_type_code"
     t.string "school_type_name"
-    t.integer "school_status_code"
-    t.string "school_status_name"
+    t.enum "school_status", default: "open", null: false, enum_type: "gias_school_statuses"
     t.string "administrative_district_code"
     t.string "administrative_district_name"
-    t.string "address_line1", null: false
+    t.string "address_line1"
     t.string "address_line2"
     t.string "address_line3"
-    t.string "postcode", null: false
+    t.string "postcode"
     t.string "primary_contact_email"
     t.string "secondary_contact_email"
     t.string "school_website"
     t.boolean "section_41_approved"
-    t.integer "la_code"
-    t.integer "establishment_number"
     t.date "open_date"
     t.date "close_date"
     t.integer "easting"
@@ -113,9 +116,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
   end
 
   create_table "schools", force: :cascade do |t|
-    t.bigint "gias_school_id"
-    t.string "name"
-    t.index ["gias_school_id"], name: "index_schools_on_gias_school_id"
+    t.integer "urn", null: false
+    t.index ["urn"], name: "schools_unique_urn", unique: true
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -134,4 +136,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.index ["provider_partnership_id"], name: "index_training_periods_on_provider_partnership_id"
   end
 
+  add_foreign_key "schools", "gias_schools", column: "urn", primary_key: "urn"
 end

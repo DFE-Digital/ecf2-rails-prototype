@@ -80,25 +80,6 @@ module GIAS
       "Other independent school",
     ).freeze
 
-    ALL_STATUS_CODES = {
-      "Open" => 1,
-      "Closed" => 2,
-      "Open, but proposed to close" => 3,
-      "Proposed to open" => 4,
-    }.freeze
-
-    OPEN_STATUS_CODES = ALL_STATUS_CODES.values_at("Open", "Open, but proposed to close").freeze
-    CLOSED_STATUS_CODES = ALL_STATUS_CODES.values_at("Closed", "Proposed to open").freeze
-
-    MAJOR_CHANGE_ATTRIBUTES = %w[
-      school_status_code
-      school_status_name
-    ].freeze
-
-    def open_status_code?(status_code)
-      OPEN_STATUS_CODES.include?(status_code)
-    end
-
     def eligible_establishment_code?(establishment_type)
       ELIGIBLE_TYPE_CODES.include?(establishment_type)
     end

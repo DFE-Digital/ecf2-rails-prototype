@@ -6,7 +6,7 @@ module GIAS
     include GIAS::Types
 
     included do
-      scope :currently_open, -> { where(school_status_code: GIAS::Types::OPEN_STATUS_CODES) }
+      scope :currently_open, -> { where(school_status: %w[open proposed_to_close]) }
       scope :eligible_establishment_type, -> { where(school_type_code: GIAS::Types::ELIGIBLE_TYPE_CODES) }
       scope :in_england, -> { where("administrative_district_code ILIKE 'E%' OR administrative_district_code = '9999'") }
       scope :section_41, -> { where(section_41_approved: true) }
@@ -14,13 +14,6 @@ module GIAS
       scope :cip_only, -> { currently_open.where(school_type_code: GIAS::Types::CIP_ONLY_TYPE_CODES) }
       scope :eligible_or_cip_only, -> { eligible.or(cip_only) }
       scope :not_cip_only, -> { where.not(id: cip_only) }
-
-      enum school_status_name: {
-        open: "Open",
-        closed: "Closed",
-        proposed_to_close: "Open, but proposed to close",
-        proposed_to_open: "Proposed to open",
-      }, _suffix: "status"
     end
 
     def name_and_urn

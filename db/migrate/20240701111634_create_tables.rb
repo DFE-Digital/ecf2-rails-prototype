@@ -54,6 +54,13 @@ class CreateTables < ActiveRecord::Migration[7.1]
 
     add_foreign_key :schools, :gias_schools, column: :urn, primary_key: :urn
 
+    create_table :gias_school_links do |t|
+      t.integer :urn, null: false
+      t.integer :link_urn, null: false
+      t.string :link_type, null: false
+    end
+
+    add_foreign_key :gias_school_links, :gias_schools, column: :urn, primary_key: :urn
 
     create_table :ect_at_school_periods do |t|
       t.references :school

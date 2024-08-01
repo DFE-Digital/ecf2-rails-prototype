@@ -19,6 +19,10 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # inclusion in ruby is deprecated in 3.4
 gem "csv"
 
+# Fetching from APIs
+gem "rubyzip"
+gem "savon"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]

@@ -46,6 +46,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.index ["teacher_id"], name: "index_ect_at_school_periods_on_teacher_id"
   end
 
+  create_table "gias_school_links", force: :cascade do |t|
+    t.integer "urn", null: false
+    t.integer "link_urn", null: false
+    t.string "link_type", null: false
+  end
+
   create_table "gias_schools", primary_key: "urn", force: :cascade do |t|
     t.string "name", null: false
     t.integer "ukprn"
@@ -136,5 +142,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_111634) do
     t.index ["provider_partnership_id"], name: "index_training_periods_on_provider_partnership_id"
   end
 
+  add_foreign_key "gias_school_links", "gias_schools", column: "urn", primary_key: "urn"
   add_foreign_key "schools", "gias_schools", column: "urn", primary_key: "urn"
 end

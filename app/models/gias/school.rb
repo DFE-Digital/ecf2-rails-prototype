@@ -13,7 +13,8 @@ module GIAS
 
     self.table_name = "gias_schools"
 
-    has_many :schools, class_name: "::School", foreign_key: :gias_school_id
+    has_one :counterpart, class_name: "::School", foreign_key: :urn
+    has_many :school_links, class_name: "GIAS::SchoolLink", foreign_key: :urn, dependent: :destroy
 
     scope :currently_open, -> { where(school_status: %w[open proposed_to_close]) }
     scope :eligible_establishment_type, -> { where(school_type_code: ELIGIBLE_TYPE_CODES) }

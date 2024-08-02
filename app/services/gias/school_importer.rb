@@ -7,7 +7,7 @@ module GIAS
   class SchoolImporter
     include Types
 
-    def import_and_sync_school_data
+    def import_and_update_school_data_from_GIAS
       import_only = GIAS::School.count.zero?
 
       # import only doesn't try to work out what has changed and does not include "closed" schools

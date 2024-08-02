@@ -10,10 +10,10 @@ module GIAS
     def import_and_update_school_data_from_GIAS
       import_only = GIAS::School.count.zero?
 
-      # import only doesn't try to work out what has changed and does not include "closed" schools
       if import_only
-        # need to import schools first in an empty DB
-        # import_and_update_schools_from_csv(school_data_file:, import_only:)
+        # import only doesn't try to work out what has changed and does not include "closed" schools
+        # we need to import schools first in an empty DB
+        import_and_update_schools_from_csv(school_data_file:, import_only:)
         import_school_links_from_csv(school_links_file:)
       else
         import_school_links_from_csv(school_links_file:)

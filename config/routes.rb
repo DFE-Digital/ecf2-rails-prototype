@@ -1,3 +1,13 @@
+class DomainConstraint
+  def initialize(domain)
+    @domain = domain
+  end
+
+  def matches?(request)
+    request.host.include?(@domain)
+  end
+end
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,4 +17,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  constraints DomainConstraint.new("bananas.education.gov.uk") do
+    resource :banana, only: :show
+
+    root "bananas#show", as: "banana_root"
+  end
+
+  constraints DomainConstraint.new("pineapples.education.gov.uk") do
+    resource :pineapple, only: :show
+
+    root "pineapples#show", as: "pineapple_root"
+  end
 end
